@@ -117,6 +117,28 @@
             clip: rect(85px, 450px, 90px, 0);
             animation: glitch-anim2 5s infinite linear alternate-reverse;
         }
+        
+        /* --- Timeline --- */
+        .timeline-item {
+            position: relative;
+            padding-left: 2.5rem;
+            padding-bottom: 2rem;
+            border-left: 2px solid #374151;
+        }
+        .timeline-item:last-child {
+            border-left: 2px solid transparent;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -0.56rem;
+            top: 0;
+            height: 1rem;
+            width: 1rem;
+            background-color: var(--brand-cyan);
+            border-radius: 50%;
+            border: 2px solid #0a0a0a;
+            box-shadow: var(--glow-shadow);
+        }
 
         /* --- Keyframe Animations --- */
         @keyframes blink {
@@ -124,43 +146,13 @@
             50% { opacity: 0; }
         }
         @keyframes glitch-anim {
-            0% { clip: rect(4px, 9999px, 5px, 0); }
-            10% { clip: rect(57px, 9999px, 29px, 0); }
-            20% { clip: rect(41px, 9999px, 93px, 0); }
-            30% { clip: rect(23px, 9999px, 2px, 0); }
-            40% { clip: rect(82px, 9999px, 39px, 0); }
-            50% { clip: rect(46px, 9999px, 9px, 0); }
-            60% { clip: rect(10px, 9999px, 9px, 0); }
-            70% { clip: rect(69px, 9999px, 53px, 0); }
-            80% { clip: rect(9px, 9999px, 7px, 0); }
-            90% { clip: rect(1px, 9999px, 99px, 0); }
-            100% { clip: rect(80px, 9999px, 4px, 0); }
+            0% { clip: rect(4px, 9999px, 5px, 0); } 10% { clip: rect(57px, 9999px, 29px, 0); } 20% { clip: rect(41px, 9999px, 93px, 0); } 30% { clip: rect(23px, 9999px, 2px, 0); } 40% { clip: rect(82px, 9999px, 39px, 0); } 50% { clip: rect(46px, 9999px, 9px, 0); } 60% { clip: rect(10px, 9999px, 9px, 0); } 70% { clip: rect(69px, 9999px, 53px, 0); } 80% { clip: rect(9px, 9999px, 7px, 0); } 90% { clip: rect(1px, 9999px, 99px, 0); } 100% { clip: rect(80px, 9999px, 4px, 0); }
         }
         @keyframes glitch-anim2 {
-            0% { clip: rect(83px, 9999px, 2px, 0); }
-            10% { clip: rect(3px, 9999px, 8px, 0); }
-            20% { clip: rect(99px, 9999px, 9px, 0); }
-            30% { clip: rect(1px, 9999px, 39px, 0); }
-            40% { clip: rect(29px, 9999px, 8px, 0); }
-            50% { clip: rect(9px, 9999px, 99px, 0); }
-            60% { clip: rect(19px, 9999px, 9px, 0); }
-            70% { clip: rect(9px, 9999px, 9px, 0); }
-            80% { clip: rect(49px, 9999px, 9px, 0); }
-            90% { clip: rect(9px, 9999px, 9px, 0); }
-            100% { clip: rect(9px, 9999px, 9px, 0); }
+            0% { clip: rect(83px, 9999px, 2px, 0); } 10% { clip: rect(3px, 9999px, 8px, 0); } 20% { clip: rect(99px, 9999px, 9px, 0); } 30% { clip: rect(1px, 9999px, 39px, 0); } 40% { clip: rect(29px, 9999px, 8px, 0); } 50% { clip: rect(9px, 9999px, 99px, 0); } 60% { clip: rect(19px, 9999px, 9px, 0); } 70% { clip: rect(9px, 9999px, 9px, 0); } 80% { clip: rect(49px, 9999px, 9px, 0); } 90% { clip: rect(9px, 9999px, 9px, 0); } 100% { clip: rect(9px, 9999px, 9px, 0); }
         }
         @keyframes glitch-skew {
-            0% { transform: skew(1deg); }
-            10% { transform: skew(0deg); }
-            20% { transform: skew(-2deg); }
-            30% { transform: skew(0deg); }
-            40% { transform: skew(1deg); }
-            50% { transform: skew(0deg); }
-            60% { transform: skew(3deg); }
-            70% { transform: skew(0deg); }
-            80% { transform: skew(-1deg); }
-            90% { transform: skew(0deg); }
-            100% { transform: skew(0deg); }
+            0% { transform: skew(1deg); } 10% { transform: skew(0deg); } 20% { transform: skew(-2deg); } 30% { transform: skew(0deg); } 40% { transform: skew(1deg); } 50% { transform: skew(0deg); } 60% { transform: skew(3deg); } 70% { transform: skew(0deg); } 80% { transform: skew(-1deg); } 90% { transform: skew(0deg); } 100% { transform: skew(0deg); }
         }
     </style>
 </head>
@@ -173,6 +165,7 @@
             <nav class="hidden md:flex space-x-8">
                 <a href="#about" class="hover:text-cyan-300 transition-colors">./About</a>
                 <a href="#skills" class="hover:text-cyan-300 transition-colors">./Skills</a>
+                <a href="#experience" class="hover:text-cyan-300 transition-colors">./Experience</a>
                 <a href="#projects" class="hover:text-cyan-300 transition-colors">./Projects</a>
                 <a href="#contact" class="hover:text-cyan-300 transition-colors">./Contact</a>
             </nav>
@@ -183,6 +176,7 @@
         <div id="mobile-menu" class="hidden md:hidden">
             <a href="#about" class="block text-center py-2 px-4 text-sm hover:bg-gray-700">./About</a>
             <a href="#skills" class="block text-center py-2 px-4 text-sm hover:bg-gray-700">./Skills</a>
+            <a href="#experience" class="block text-center py-2 px-4 text-sm hover:bg-gray-700">./Experience</a>
             <a href="#projects" class="block text-center py-2 px-4 text-sm hover:bg-gray-700">./Projects</a>
             <a href="#contact" class="block text-center py-2 px-4 text-sm hover:bg-gray-700">./Contact</a>
         </div>
@@ -295,8 +289,63 @@
             </div>
         </section>
 
+        <!-- Professional Experience Section -->
+        <section id="experience" class="py-20">
+            <div class="container mx-auto px-6">
+                <h3 class="text-3xl font-bold text-white text-center mb-16">./Professional_Experience</h3>
+                <div class="max-w-3xl mx-auto">
+                    <!-- Timeline Item 1 -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <p class="font-mono text-sm brand-cyan mb-1">May 2024 - Present</p>
+                        <h4 class="text-xl font-bold text-white">Cybersecurity Expert</h4>
+                        <p class="text-gray-400 mb-3">Trades Team - Voltium Ltd. | Preston, UK</p>
+                        <ul class="list-disc list-inside text-sm space-y-1">
+                            <li>Developed comprehensive cybersecurity strategies resulting in a 30% reduction in cyber threats.</li>
+                            <li>Led incident response efforts, minimizing impact of security breaches within 24 hours.</li>
+                            <li>Conducted regular security assessments, identifying and resolving 90% of potential risks.</li>
+                        </ul>
+                    </div>
+                    <!-- Timeline Item 2 -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <p class="font-mono text-sm brand-cyan mb-1">Feb 2024 - Apr 2024</p>
+                        <h4 class="text-xl font-bold text-white">Cyber Security Analyst</h4>
+                        <p class="text-gray-400 mb-3">Trades Team - Voltium Ltd. | Preston, UK</p>
+                        <ul class="list-disc list-inside text-sm space-y-1">
+                            <li>Analyzed and neutralized advanced threats across 200 endpoints using Xcitium EDR.</li>
+                            <li>Reduced security breach incidents by 25% over a 4-month period.</li>
+                            <li>Managed Proxmox servers and deployed Ansible for automated security tasks.</li>
+                        </ul>
+                    </div>
+                    <!-- Timeline Item 3 -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <p class="font-mono text-sm brand-cyan mb-1">Jun 2021 - Jan 2022</p>
+                        <h4 class="text-xl font-bold text-white">Freelance Penetration Tester</h4>
+                        <p class="text-gray-400 mb-3">HackerOne | Chennai, India</p>
+                        <ul class="list-disc list-inside text-sm space-y-1">
+                            <li>Conducted comprehensive penetration tests on over 50 client networks and web applications annually.</li>
+                            <li>Utilized tools like Nmap, Nessus, and Burp Suite Professional to identify and document vulnerabilities.</li>
+                        </ul>
+                    </div>
+                    <!-- Timeline Item 4 -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <p class="font-mono text-sm brand-cyan mb-1">Jun 2020 - Dec 2020</p>
+                        <h4 class="text-xl font-bold text-white">Cyber Security Internship</h4>
+                        <p class="text-gray-400 mb-3">Verzeo (Microsoft Partnered) | Chennai, India</p>
+                        <ul class="list-disc list-inside text-sm space-y-1">
+                            <li>Contributed to security assessments and vulnerability scans for a Fortune 500 company.</li>
+                            <li>Audited and fortified network security by following ISO/IEC 27001 standards.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Projects Section -->
-        <section id="projects" class="py-20">
+        <section id="projects" class="py-20 bg-black bg-opacity-50">
             <div class="container mx-auto px-6">
                 <h3 class="text-3xl font-bold text-white text-center mb-12">./Projects</h3>
                 
@@ -336,7 +385,7 @@
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="py-20 bg-black bg-opacity-50">
+        <section id="contact" class="py-20">
             <div class="container mx-auto px-6 text-center">
                 <h3 class="text-3xl font-bold text-white mb-4">./Contact_Me</h3>
                 <p class="max-w-xl mx-auto mb-8 font-mono">
