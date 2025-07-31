@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Threat Report: Darknet Analysis - Rishi Jayavel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a;
+            color: #d1d5db;
+        }
+        h1, h2, h3, h4, h5, h6, code {
+            font-family: 'Roboto Mono', monospace;
+        }
+        .report-container {
+            max-width: 1024px;
+            margin: auto;
+            background-color: #111827;
+            border: 1px solid #08d9d6;
+            box-shadow: 0 0 20px rgba(8, 217, 214, 0.2);
+        }
+        .report-header h1 {
+            color: #08d9d6;
+            text-shadow: 0 0 5px rgba(8, 217, 214, 0.7);
+        }
+        .section-title {
+            color: #08d9d6;
+            border-bottom: 2px solid #08d9d6;
+            padding-bottom: 8px;
+            margin-bottom: 1.5rem;
+        }
+        code {
+            background-color: #1e293b;
+            color: #e2e8f0;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #374151;
+            padding: 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background-color: #1e293b;
+            color: #08d9d6;
+        }
+        blockquote {
+            border-left: 4px solid #08d9d6;
+            padding-left: 1rem;
+            margin-left: 0;
+            font-style: italic;
+            color: #9ca3af;
+        }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="report-container p-6 md:p-10 rounded-lg">
+        
+        <!-- Report Header -->
+        <header class="report-header text-center mb-10">
+            <h1 class="text-3xl md:text-4xl font-bold">Threat Intelligence Report</h1>
+            <p class="text-lg text-gray-400">Analysis of Cyber Threats on Darknet Platforms</p>
+        </header>
+
+        <table class="mb-10 text-sm">
+            <thead>
+                <tr>
+                    <th>Report ID</th>
+                    <th>Project Author</th>
+                    <th>Project Timeline</th>
+                    <th>Classification</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>RJ-DNET-TIR-001</code></td>
+                    <td>Rishi Jayavel</td>
+                    <td>Sept 2019 - May 2020</td>
+                    <td>Internal Technical - BCA Capstone</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Section 1: Threat Intelligence Summary -->
+        <section class="mb-10">
+            <h2 class="section-title text-2xl font-bold">1.0 Threat Intelligence Summary</h2>
+            <p class="mb-4">This report details the development and operational deployment of a custom-built Command-Line Interface (CLI) tool, codenamed `Dark-Scout`, for the automated reconnaissance and threat analysis of Darknet websites. The project's primary goal was to create a system for efficiently acquiring and parsing data from `.onion` domains to identify emerging cyber threats, illicit trade, and threat actor TTPs.</p>
+            <p class="mb-4">`Dark-Scout` successfully demonstrated its capability to navigate the Tor network, scrape content from target sites, and perform keyword-based analysis to flag high-risk content. The tool was instrumental in identifying several categories of threats, including Malware-as-a-Service (MaaS) offerings, Personally Identifiable Information (PII) dumps, and exploit kit sales. This project validates the feasibility of using automated tooling for initial threat intelligence gathering on the Darknet, providing a significant advantage over manual analysis.</p>
+        </section>
+
+        <!-- Section 2: Project Objectives & Scope -->
+        <section class="mb-10">
+            <h2 class="section-title text-2xl font-bold">2.0 Project Objectives & Scope</h2>
+            <h3 class="text-xl font-semibold text-white mb-3">Objectives:</h3>
+            <ul class="list-disc list-inside space-y-2 mb-6">
+                <li>To design and build a functional CLI tool for automated data acquisition from Darknet websites.</li>
+                <li>To implement a robust parsing engine capable of extracting actionable intelligence from unstructured HTML data.</li>
+                <li>To test the tool's effectiveness against live Darknet environments.</li>
+                <li>To categorize and report on the types of threats identified during the analysis.</li>
+            </ul>
+            <h3 class="text-xl font-semibold text-white mb-3">Scope:</h3>
+            <p>The scope of this project was limited to the automated scraping and keyword-based analysis of publicly accessible layers of selected Darknet markets and forums. The project did not involve interacting with vendors, creating accounts, or performing any form of financial transaction. All activities were passive and focused on data acquisition for intelligence purposes.</p>
+        </section>
+
+        <!-- Section 3: Tooling & Architecture -->
+        <section class="mb-10">
+            <h2 class="section-title text-2xl font-bold">3.0 Tooling & Architecture: `Dark-Scout` CLI</h2>
+            <p class="mb-4">The `Dark-Scout` tool was engineered as a modular CLI application to ensure flexibility and future extensibility. Its architecture consists of two primary components:</p>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-gray-900 p-4 rounded-lg">
+                    <h4 class="text-lg font-bold text-white mb-2">1. Python-based "Crawler" Core</h4>
+                    <p class="text-sm">The core engine was developed in Python for its powerful networking libraries. It is responsible for:</p>
+                    <ul class="list-disc list-inside space-y-1 mt-2 text-sm">
+                        <li>Interfacing with the local Tor SOCKS proxy to anonymize all outbound traffic.</li>
+                        <li>Handling HTTP/HTTPS requests to `.onion` domains.</li>
+                        <li>Managing session cookies and user agents to mimic a real browser.</li>
+                        <li>A recursive link-following mechanism to crawl target websites up to a user-defined depth.</li>
+                    </ul>
+                </div>
+                <div class="bg-gray-900 p-4 rounded-lg">
+                    <h4 class="text-lg font-bold text-white mb-2">2. Ruby-based "Analyzer" Engine</h4>
+                    <p class="text-sm">The raw HTML content acquired by the Crawler is piped to the Analyzer engine, which was developed in Ruby for its superior text-processing and regular expression capabilities. It performs:</p>
+                    <ul class="list-disc list-inside space-y-1 mt-2 text-sm">
+                        <li>Stripping of HTML tags to extract plain text.</li>
+                        <li>Keyword matching against a customizable dictionary of threat-related terms (e.g., `ransomware`, `RDP`, `CVV`, `botnet`).</li>
+                        <li>Regular expression matching to identify patterns like email addresses, cryptocurrency wallets, and IP addresses.</li>
+                        <li>Generating a structured JSON output report for each scanned site.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Methodology -->
+        <section class="mb-10">
+            <h2 class="section-title text-2xl font-bold">4.0 Methodology</h2>
+            <p class="mb-4">The project's methodology was inspired by SCADA (Supervisory Control and Data Acquisition) principles, where `Dark-Scout` acted as a "supervisory" system to remotely "acquire" data from disparate Darknet nodes for centralized analysis.</p>
+            <ol class="list-decimal list-inside space-y-4">
+                <li><strong>Target Identification:</strong> A list of active Darknet market and forum URLs was compiled from open-source intelligence (OSINT) sources.</li>
+                <li><strong>Automated Scanning:</strong> The `Dark-Scout` tool was executed against each target URL with a crawl depth of 3 levels.</li>
+                <li><strong>Data Aggregation:</strong> The JSON output from each scan was aggregated into a central database for analysis.</li>
+                <li><strong>Threat Categorization:</strong> The aggregated data was manually reviewed and categorized based on the types of illicit goods or services being offered.</li>
+                <li><strong>Reporting:</strong> The findings were compiled into this technical report, highlighting key trends and notable discoveries.</li>
+            </ol>
+        </section>
+
+        <!-- Section 5: Key Findings -->
+        <section class="mb-10">
+            <h2 class="section-title text-2xl font-bold">5.0 Key Findings & Threat Analysis</h2>
+            <p class="mb-4">The automated scans revealed a thriving ecosystem of cybercrime-as-a-service. The most prominent categories of threats identified are detailed below:</p>
+            <div class="overflow-x-auto">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Threat Category</th>
+                            <th>Description</th>
+                            <th>Examples Observed</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Malware-as-a-Service (MaaS)</strong></td>
+                            <td>Listings offering malware for sale or lease. This includes ransomware builders, information stealers (infostealers), and Remote Access Trojans (RATs).</td>
+                            <td>- "Zeus" banking trojan source code.<br>- Monthly subscription to a keylogger with a web-based control panel.<br>- Ransomware builder kit advertised for $500 USD.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Compromised Data & PII</strong></td>
+                            <td>Vast quantities of stolen data for sale, typically priced per record or sold in bulk dumps.</td>
+                            <td>- "Fullz" (full PII packages) including name, address, SSN, and DOB.<br>- Dumps of corporate email credentials.<br>- Credit card data (CVV) from various international banks.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Hacking Services & Tools</strong></td>
+                            <td>Threat actors offering their services for hire, or selling tools to facilitate attacks.</td>
+                            <td>- DDoS-for-hire services, priced per hour.<br>- Phishing kit creation services tailored to specific targets (e.g., banks, social media).<br>- Exploit kits for recent vulnerabilities (CVEs).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <!-- Section 6: Conclusion -->
+        <section>
+            <h2 class="section-title text-2xl font-bold">6.0 Conclusion & Future Work</h2>
+            <p class="mb-4">This project successfully demonstrated that an automated tool like `Dark-Scout` can serve as a powerful force multiplier for a threat intelligence analyst. By automating the time-consuming process of data acquisition, it allows the analyst to focus on higher-level tasks like trend analysis and actor profiling.</p>
+            <blockquote class="mb-6">
+                The project was awarded "Best Project" in the Cybersecurity Department, evidencing its success and the effectiveness of the developed tool.
+            </blockquote>
+            <h3 class="text-xl font-semibold text-white mb-3">Recommendations for Future Work:</h3>
+            <ul class="list-disc list-inside space-y-2">
+                <li><strong>Machine Learning Integration:</strong> Implement a machine learning model to automatically classify listings, moving beyond simple keyword matching.</li>
+                <li><strong>Database Integration:</strong> Store findings in a structured database (e.g., Elasticsearch) to enable more complex querying and long-term trend analysis.</li>
+                <li><strong>GUI Development:</strong> Create a web-based graphical user interface (GUI) to make the tool more accessible to analysts without a strong command-line background.</li>
+            </ul>
+        </section>
+
+    </div>
+
+</body>
+</html>
